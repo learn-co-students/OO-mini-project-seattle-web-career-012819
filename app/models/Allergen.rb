@@ -1,10 +1,10 @@
 class Allergen
-    attr_reader :user, :recipe
+    attr_reader :user, :ingredient
     @@all = []
 
-    def initialize(user, recipe)
+    def initialize(user, ingredient)
         @user = user
-        @recipe = recipe
+        @ingredient = ingredient
         @@all << self
     end
 
