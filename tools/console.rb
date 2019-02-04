@@ -1,9 +1,9 @@
 require_relative '../config/environment.rb'
 
 #users
-seth = User.new("Seth")
-tim = User.new("Tim")
-steve = User.new("Steve")
+josh = User.new("Josh")
+arturo = User.new("Arturo")
+letian = User.new("LeTian")
 
 #ingredients
 beef = Ingredient.new("beef") #specialburger, soup
@@ -23,15 +23,15 @@ salad = Recipe.new("Salad")
 
 
 #card creation
-seth.add_recipe_card(soup, 'feb', 1)
-seth.add_recipe_card(salad, 'mar', 2)
-seth.add_recipe_card(burger, 'jan', 4)
-seth.add_recipe_card(padthai, 'dec', 3)
+josh.add_recipe_card(soup, 'feb', 1)
+josh.add_recipe_card(salad, 'mar', 2)
+josh.add_recipe_card(burger, 'jan', 4)
+josh.add_recipe_card(padthai, 'dec', 3)
 
-tim.add_recipe_card(soup, 'may', 4)
-tim.add_recipe_card(salad, 'jul',  5)
+arturo.add_recipe_card(soup, 'may', 4)
+arturo.add_recipe_card(salad, 'jul',  5)
 
-steve.add_recipe_card(soup, 'aug', 5)
+letian.add_recipe_card(soup, 'aug', 5)
 
 #specialburger
 RecipeIngredient.new(beef, burger)
@@ -53,10 +53,10 @@ RecipeIngredient.new(chicken, padthai)
 RecipeIngredient.new(onion, padthai)
 
 #Allergies
-seth.declare_allergen(chicken)
-seth.declare_allergen(peanut)
-tim.declare_allergen(chicken)
-tim.declare_allergen(peanut)
+josh.declare_allergen(chicken)
+josh.declare_allergen(peanut)
+arturo.declare_allergen(chicken)
+arturo.declare_allergen(peanut)
 
 
 
