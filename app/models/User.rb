@@ -1,4 +1,4 @@
-class User
+class User 
     attr_reader :name
     @@all = []
 
@@ -45,7 +45,7 @@ class User
         most_recent = nil
         RecipeCard.all.each do |card|
             if card.user == self
-                if most_recent == nil 
+                if most_recent == nil
                     most_recent = card
                 elsif card.date > most_recent.date
                     most_recent = card
