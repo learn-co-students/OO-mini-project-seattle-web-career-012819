@@ -28,7 +28,7 @@ class User
     end
 
     def allergens
-        Allergen.select do |allergen|
+        Allergen.all.select do |allergen|
             allergen.user == self
         end
     end
