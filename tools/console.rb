@@ -65,4 +65,15 @@ puts
 puts "Steve has two recipes"
 puts steve.recipes.length == 2
 
+# My own tests are past here
+puts ""
+puts "Most Popular Recipe: #{Recipe.most_popular.name}"
+puts "Sandwich Allergens: #{sandwich.allergens}"
+puts "Most recent recipe: #{grandpa.most_recent_recipe.name}"
+puts "Most Common Allergen: #{Ingredient.most_common_allergen.name}"
+puts "Top three recipes: #{steve.top_three_recipes}"
+
+puts grandpa.is_safe?(wings_recipe)
+puts grandpa.safe_recipes
+
 #binding.pry

@@ -1,3 +1,5 @@
+require "pry"
+
 class User
     attr_reader :name
     @@all = []
@@ -12,11 +14,11 @@ class User
     end
 
     def recipes
-        RecipeCard.all.collect do |card|
+        (RecipeCard.all.collect do |card|
             if card.user == self
                 card.recipe
             end
-        end
+        end).compact
     end
 
     def add_recipe_card(recipe)
@@ -33,7 +35,36 @@ class User
         end
     end
 
+    def detect_allergen(ingredient)
+      al = allergens.collect {|element| element.ingredient}
+      al.include?(ingredient)
+    end
+
+    def is_safe?(recipe)
+      !recipe.ingredients.compact.collect {|element| self.detect_allergen(element)}.include?(true)
+    end
+
+    def safe_recipes
+      saf_reps = []
+
+      Recipe.all.each do |recipe|
+        if self.is_safe?(recipe) == true
+          saf_reps << recipe
+        end
+      end
+      binding.pry
+      saf_reps
+    end
+
     def top_three_recipes
+      top3 = []
+      arr = RecipeCard.all.collect{|obj| obj}.sort_by {|element| element.rating}
+
+
+      top3 << arr[0]
+      top3 << arr[1]
+      top3 << arr[2]
+      top3
     end
 
     # Recipes are added to the end of the array in the order they're
