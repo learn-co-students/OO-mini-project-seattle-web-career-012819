@@ -40,14 +40,14 @@ RecipeIngredient.new(wings_recipe, hot_sauce)
 
 # Users
 steve = User.new("Steve")
-RecipeCard.new(steve, bacon_wrapped_sausages)
-RecipeCard.new(steve, sandwich)
-RecipeCard.new(steve, popcorn_balls)
-RecipeCard.new(steve, chicken_wings)
+RecipeCard.new(steve, bacon_wrapped_sausages, 9)
+RecipeCard.new(steve, sandwich, 3)
+RecipeCard.new(steve, popcorn_balls, 10)
+RecipeCard.new(steve, wings_recipe, 8)
 
 grandpa = User.new("Grandpa")
 grandpa.declare_allergen(bread)
-RecipeCard.new(grandpa, popcorn_balls)
+RecipeCard.new(grandpa, popcorn_balls, 7)
 
 # basic access tests
 puts bacon_wrapped_sausages.name
@@ -59,10 +59,13 @@ puts "Grandpa is allergic to bread"
 puts grandpa.name
 puts grandpa.allergens.first.ingredient.name
 puts
-puts "Steve's most recent recipe is a sandwich"
-puts steve.most_recent_recipe == sandwich
+puts "Steve's most recent recipe is the wings recipe"
+puts steve.most_recent_recipe == wings_recipe
+puts steve.most_recent_recipe.name
 puts
-puts "Steve has two recipes"
-puts steve.recipes.length == 2
+puts "Steve has four recipes"
+puts steve.recipes.length == 4
+puts
+puts 
 
 #binding.pry

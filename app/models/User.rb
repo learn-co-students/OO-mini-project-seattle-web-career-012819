@@ -12,11 +12,13 @@ class User
     end
 
     def recipes
-        RecipeCard.all.collect do |card|
+        results = []
+        RecipeCard.all.each do |card|
             if card.user == self
-                card.recipe
+                results << card.recipe
             end
         end
+        results
     end
 
     def add_recipe_card(recipe)
@@ -34,11 +36,15 @@ class User
     end
 
     def top_three_recipes
+        self.recipes.sort_by(:rating).last(3)
     end
 
-    # Recipes are added to the end of the array in the order they're
-    # created. The last recipe in the array will be the most recent.
+    # sort the recipes by their date so the most
+    # recent is the last in the array
     def most_recent_recipe
-        recipes.last
+        recipe_cards = RecipeCard.all.select do |card|
+            card.user == self
+        end
+        recipe_cards.sort_by{|card| card.date}.last.recipe
     end
 end
