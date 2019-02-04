@@ -35,7 +35,7 @@ class User
   end
 
   def safe_recipes
-    a = self.allergens.map { |allergen| allergen.ingredient }
-    Recipe.all.select { |recipe| (recipe.allergens & a).empty? }
+    # @allen-woods: cleaned up the syntax in this function
+    Recipe.all.select { |recipe| (recipe.allergens & self.allergens.map { |allergen| allergen.ingredient } ).empty? }
   end
 end
