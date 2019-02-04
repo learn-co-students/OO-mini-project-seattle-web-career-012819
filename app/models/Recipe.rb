@@ -43,8 +43,10 @@ class Recipe
     end
 
     def allergens
-        Allergen.all.select do |allergen|
-            ingredients.include? allergen.ingredient
+        Allergen.all.collect do |allergen|
+            if ingredients.include? allergen.ingredient
+                allergen.ingredient
+            end
         end
     end
 

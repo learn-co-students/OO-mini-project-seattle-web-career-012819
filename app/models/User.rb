@@ -30,8 +30,10 @@ class User
     end
 
     def allergens
-        Allergen.all.select do |allergen|
-            allergen.user == self
+        Allergen.all.collect do |allergen|
+            if allergen.user == self
+                allergen.ingredient
+            end
         end
     end
 
@@ -53,5 +55,23 @@ class User
             end
         end
         return most_recent.recipe
+    end
+
+    def safe_recipes
+        safe = []
+        self.recipes.each do |recipe|
+            is_safe = true
+            # check each ingredient to see if there are any allergies
+            recipe.ingredients.each do |ingredient|
+                if self.allergens.include? ingredient
+                    is_safe = false
+                end
+            end
+
+            if is_safe
+                safe << recipe
+            end
+        end
+        safe
     end
 end

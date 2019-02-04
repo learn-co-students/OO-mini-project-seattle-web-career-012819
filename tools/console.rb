@@ -48,6 +48,7 @@ RecipeCard.new(steve, wings_recipe, 8)
 grandpa = User.new("Grandpa")
 grandpa.declare_allergen(bread)
 RecipeCard.new(grandpa, popcorn_balls, 7)
+RecipeCard.new(grandpa, sandwich, 1)
 
 # basic access tests
 puts bacon_wrapped_sausages.name
@@ -57,7 +58,7 @@ puts brown_sugar.name
 puts
 puts "Grandpa is allergic to bread"
 puts grandpa.name
-puts grandpa.allergens.first.ingredient.name
+puts grandpa.allergens.first.name
 puts
 puts "Steve's most recent recipe is the wings recipe"
 puts steve.most_recent_recipe == wings_recipe
@@ -74,5 +75,9 @@ puts
 puts "Most popular recipe: #{Recipe.most_popular.name}"
 puts "Most common allergen: #{Ingredient.most_common_allergen.name}"
 puts
+puts "Grandpa's safe recipes should not include a sandwich"
+grandpa.safe_recipes.each do |recipe|
+    puts recipe.name
+end
 
 #binding.pry
