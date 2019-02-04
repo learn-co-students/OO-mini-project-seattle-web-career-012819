@@ -36,6 +36,9 @@ class User
     def top_three_recipes
     end
 
+    # Recipes are added to the end of the array in the order they're
+    # created. The last recipe in the array will be the most recent.
     def most_recent_recipe
+        recipes.last
     end
 end
