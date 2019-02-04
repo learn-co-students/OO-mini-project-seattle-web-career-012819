@@ -42,9 +42,16 @@ class User
     # sort the recipes by their date so the most
     # recent is the last in the array
     def most_recent_recipe
-        recipe_cards = RecipeCard.all.select do |card|
-            card.user == self
+        most_recent = nil
+        RecipeCard.all.each do |card|
+            if card.user == self
+                if most_recent == nil 
+                    most_recent = card
+                elsif card.date > most_recent.date
+                    most_recent = card
+                end
+            end
         end
-        recipe_cards.sort_by{|card| card.date}.last.recipe
+        return most_recent.recipe
     end
 end
