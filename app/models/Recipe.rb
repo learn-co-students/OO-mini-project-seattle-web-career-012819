@@ -15,15 +15,24 @@ class Recipe
     end
 
     def users
+        # iterate through all the cards and collect a list of
+        # users that have a card with this recipe
+        RecipeCard.all.collect do |card|
+            if card.recipe == self
+                card.user
+            end
+        end
     end
 
     def ingredients
+        RecipeIngredient.all.collect do |ingredient|
+            if ingredient.recipe == self
+                ingredient.ingredient
+            end
+        end
     end
 
     def allergens
-        @ingredients.select do |ingredient|
-            ingredient.is_allergen
-        end
     end
 
     def add_ingredients(ingredients)
