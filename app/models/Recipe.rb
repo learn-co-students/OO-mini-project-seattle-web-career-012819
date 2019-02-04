@@ -11,7 +11,17 @@ class Recipe
         @@all
     end
 
-    def most_popular
+    def self.most_popular
+        count = Hash.new(0)
+        most_count = 0
+        most_recipe = nil
+        RecipeCard.all.each do |card|
+            count[card.recipe] += 1
+            if count[card.recipe] > most_count
+                most_recipe = card.recipe
+            end
+        end
+        most_recipe
     end
 
     def users
@@ -33,6 +43,9 @@ class Recipe
     end
 
     def allergens
+        Allergen.all.select do |allergen|
+            ingredients.include? allergen.ingredient
+        end
     end
 
     def add_ingredients(ingredients)

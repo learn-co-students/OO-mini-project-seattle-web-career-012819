@@ -66,6 +66,13 @@ puts
 puts "Steve has four recipes"
 puts steve.recipes.length == 4
 puts
-puts 
+steve.recipes.each do |recipe|
+    puts "   Recipe: #{recipe.name}"
+    puts "Allergens: #{recipe.allergens}"
+end
+puts
+puts "Most popular recipe: #{Recipe.most_popular.name}"
+puts "Most common allergen: #{Ingredient.most_common_allergen.name}"
+puts
 
 #binding.pry
