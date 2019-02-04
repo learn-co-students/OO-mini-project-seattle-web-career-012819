@@ -8,7 +8,6 @@ pho = Recipe.new('Pho')
 noodles = Recipe.new('Noodles')
 beef = Recipe.new('BEEF')
 
-
 yong.add_recipe_card(noodles, 20190105, 5)
 yong.add_recipe_card(pho, 20170613, 4)
 yong.add_recipe_card(beef, 20180529, 3)
