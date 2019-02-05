@@ -1,5 +1,6 @@
 class RecipeIngredient
 
+
   attr_accessor :ingredient, :recipe
 
   @@all = []

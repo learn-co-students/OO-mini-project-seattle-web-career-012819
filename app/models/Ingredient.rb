@@ -1,5 +1,6 @@
 class Ingredient
 
+
   attr_accessor :name
 
   @@all = []
@@ -37,7 +38,4 @@ class Ingredient
 
   #example
     #user_recipes = self.recipe_cards.sort_by{ |recipe_card| recipe_card.rating}.reverse
-
-
-
 end

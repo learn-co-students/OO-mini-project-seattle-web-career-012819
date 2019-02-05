@@ -1,3 +1,4 @@
+
 class RecipeCard
 
   attr_accessor :user, :recipe, :date, :rating
@@ -17,3 +18,4 @@ class RecipeCard
   end
 
 end
+
