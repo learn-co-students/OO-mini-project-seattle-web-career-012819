@@ -34,4 +34,4 @@ hamburger.ingredients.each do |ingredient|
   puts ingredient.name
 end
 
-#binding.pry
+binding.pry
