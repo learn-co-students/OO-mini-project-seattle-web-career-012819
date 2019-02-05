@@ -1,4 +1,5 @@
 class Allergen
+
     attr_reader :user, :ingredient
     @@all = []
 
@@ -12,3 +13,4 @@ class Allergen
         @@all
     end
 end
+

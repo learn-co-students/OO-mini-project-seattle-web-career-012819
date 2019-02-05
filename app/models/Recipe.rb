@@ -1,58 +1,43 @@
 class Recipe
-    attr_reader :name
-    @@all = []
 
-    def initialize(name)
-        @name = name
-        @@all << self
-    end
+  attr_accessor :name
 
-    def self.all
-        @@all
-    end
+  @@all = []
 
-    def self.most_popular
-        count = Hash.new(0)
-        most_count = 0
-        most_recipe = nil
-        RecipeCard.all.each do |card|
-            count[card.recipe] += 1
-            if count[card.recipe] > most_count
-                most_recipe = card.recipe
-            end
-        end
-        most_recipe
-    end
+  def initialize(name)
+    @@all << self
+    @name = name
+  end
 
-    def users
-        # iterate through all the cards and collect a list of
-        # users that have a card with this recipe
-        RecipeCard.all.collect do |card|
-            if card.recipe == self
-                card.user
-            end
-        end
-    end
+  def self.all
+    @@all
+  end
 
-    def ingredients
-        RecipeIngredient.all.collect do |ingredient|
-            if ingredient.recipe == self
-                ingredient.ingredient
-            end
-        end
-    end
+  def recipe_cards
+    RecipeCard.all.select { |recipe_card| recipe_card.recipe == self}
+  end
 
-    def allergens
-        Allergen.all.collect do |allergen|
-            if ingredients.include? allergen.ingredient
-                allergen.ingredient
-            end
-        end
-    end
+  def users
+    self.recipe_cards.map { |recipe_card| recipe_card.user }
+  end
 
-    def add_ingredients(ingredients)
-        ingredients.each do |ingredient|
-            @ingredients << ingredient
-        end
-    end
+  def ingredients
+    self.recipe_ingredients.map { |recipe_ingredient| recipe_ingredient.ingredient}
+  end
+
+  def recipe_ingredients
+    RecipeIngredient.all.select { |recipe_ingredient| recipe_ingredient.recipe == self }
+  end
+
+  def self.most_popular
+     @@all.sort_by { |recipe| recipe.users.length}.last
+     #@@all.last
+  end
+
+  def add_ingredients(ingredient_array)
+    ingredient_array.each { |ingredient| RecipeIngredient.new(ingredient, self) }
+  end
+
+
+
 end

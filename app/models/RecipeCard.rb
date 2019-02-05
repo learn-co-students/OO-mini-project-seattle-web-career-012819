@@ -1,19 +1,21 @@
-require 'date'
 
 class RecipeCard
-    attr_reader :user, :recipe, :rating, :date
-    @@all = []
 
-    # rating should be an integer between 1-10
-    def initialize(user, recipe, rating)
-        @user = user
-        @recipe = recipe
-        @rating = rating
-        @date = DateTime.now
-        @@all << self
-    end
+  attr_accessor :user, :recipe, :date, :rating
 
-    def self.all
-        @@all
-    end
+  @@all = []
+
+  def initialize(user, recipe, date, rating)
+    @user = user
+    @recipe = recipe
+    @date = date
+    @rating = rating
+    @@all << self
+  end
+
+  def self.all
+    @@all
+  end
+
 end
+

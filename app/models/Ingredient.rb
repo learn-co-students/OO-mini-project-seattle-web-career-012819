@@ -1,28 +1,41 @@
 class Ingredient
-    attr_reader :name
-    @@all = []
 
-    def initialize(name)
-        @name = name
-        @@all << self
-    end
 
-    def self.all
-        @@all
-    end
+  attr_accessor :name
 
-    # Ingredient.most_common_allergen should return the ingredient instance
-    # that the highest number of users are allergic to
-    def self.most_common_allergen
-        count = Hash.new(0)
-        most_count = 0
-        most_allergen = nil
-        Allergen.all.each do |allergen|
-            count[allergen.ingredient] += 1
-            if count[allergen.ingredient] > most_count
-                most_allergen = allergen.ingredient
-            end
-        end
-        most_allergen
-    end
+  @@all = []
+
+  def initialize(name)
+    @@all << self
+    @name = name
+  end
+
+  def self.all
+    @@all
+  end
+
+  def recipe_ingredients
+    RecipeIngredient.all.select { |recipe_ingredient| recipe_ingredient.ingredient == self}
+  end
+
+  def allergens
+    Allergen.all.select { |allergen| allergen.ingredient == self }
+  end
+
+  def recipes
+    self.recipe_ingredients.map { |recipe_ingredient| recipe_ingredient.recipe}
+  end
+
+  def users
+    self.allergens.map { |allergen| allergen.user }
+  end
+
+  #Ingredient.most_common_allergen
+
+  def self.most_common_allergen
+    @@all.sort_by { |ingredient| ingredient.users.size}.reverse[0].name
+  end
+
+  #example
+    #user_recipes = self.recipe_cards.sort_by{ |recipe_card| recipe_card.rating}.reverse
 end

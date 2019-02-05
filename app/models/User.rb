@@ -1,77 +1,63 @@
 class User
-    attr_reader :name
-    @@all = []
 
-    def initialize(name)
-        @name=name
-        @@all << self
-    end
+  attr_accessor :name
 
-    def self.all
-        @@all
-    end
+  @@all = []
 
-    def recipes
-        results = []
-        RecipeCard.all.each do |card|
-            if card.user == self
-                results << card.recipe
-            end
-        end
-        results
-    end
+  def initialize(name)
+    @@all << self
+    @name = name
+  end
 
-    def add_recipe_card(recipe)
-        RecipeCard.new(self, recipe)
-    end
+  def self.all
+    @@all
+  end
 
-    def declare_allergen(ingredient)
-        Allergen.new(self, ingredient)
-    end
+  def recipe_cards
+    RecipeCard.all.select { |recipe_card| recipe_card.user == self}
+  end
 
-    def allergens
-        Allergen.all.collect do |allergen|
-            if allergen.user == self
-                allergen.ingredient
-            end
-        end
-    end
+  def allergens
+    Allergen.all.select { |allergen| allergen.user == self }
+  end
 
-    def top_three_recipes
-        self.recipes.sort_by(:rating).last(3)
-    end
+  def recipes
+    self.recipe_cards.map { |recipe_card| recipe_card.recipe }
+  end
 
-    # sort the recipes by their date so the most
-    # recent is the last in the array
-    def most_recent_recipe
-        most_recent = nil
-        RecipeCard.all.each do |card|
-            if card.user == self
-                if most_recent == nil 
-                    most_recent = card
-                elsif card.date > most_recent.date
-                    most_recent = card
-                end
-            end
-        end
-        return most_recent.recipe
-    end
+  def ingredients
+    self.allergens.map { |recipe_card| recipe_card.ingredient}
+  end
 
-    def safe_recipes
-        safe = []
-        self.recipes.each do |recipe|
-            is_safe = true
-            # check each ingredient to see if there are any allergies
-            recipe.ingredients.each do |ingredient|
-                if self.allergens.include? ingredient
-                    is_safe = false
-                end
-            end
+  def add_recipe_card(recipe, date, rating)
+    RecipeCard.new(self, recipe, date, rating)
+  end
 
-            if is_safe
-                safe << recipe
-            end
-        end
-        safe
-    end
+  #declare_allergen should accept an ingredient instance as an argument,
+  #and create a new allergen instance for this user and the given ingredient
+
+  def declare_allergen(ingredient)
+    Allergen.new(self, ingredient)
+  end
+
+  #User#allergens should return all of the ingredients this user is allergic to
+  #User#top_three_recipes should return the top three highest rated recipes for this user.
+
+  def top_three_recipes
+    user_recipes = self.recipe_cards.sort_by{ |recipe_card| recipe_card.rating}.last(3)
+    #user_recipes = user_recipes[0..2]
+    user_recipes.map { |recipe_card| recipe_card.recipe.name}
+  end
+
+  #most_recent_recipe should return
+  #the recipe most recently added to the user's cookbook.
+
+  def most_recent_recipe
+    self.recipe_cards.last.recipe.name
+  end
+
+
 end
+
+
+
