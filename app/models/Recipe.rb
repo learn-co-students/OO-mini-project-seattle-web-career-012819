@@ -45,7 +45,23 @@ class Recipe
   end
 
   def allergens
-    puts "create allergens that are in this recipe"
+    #recipe has ingredients, see if any ingredients are allergens
+    allergens_array = []
+    my_ingredients = ingredients
+    Allergen.all.each do |allergen|
+      if my_ingredients.include? allergen.ingredient.name
+        allergens_array << allergen.ingredient.name
+      end
+    end
+    allergens_array
+  end
+
+  def add_ingredient(ingredientList)
+    #should take an array of ingredient instances as an argument,
+    #and associate each of those ingredients with this recipe
+    ingredientList.each do |ingredient|
+      RecipeIngredient.new(self, ingredient)
+    end
 
   end
 end
