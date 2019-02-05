@@ -23,11 +23,23 @@ require_relative '../config/environment.rb'
   puts "Smores Ingredients!"
   puts smores.ingredients
 
+#test user
   jess = User.new("Jessica")
   puts jess.name
 
+#test RecipeCard
   jesscard = RecipeCard.new(jess, smores, 8)
   puts jesscard.rating
 
+  puts "most most_popular"
   puts Recipe.most_popular
-  
+
+  puts "users for recipe"
+  puts smores.users
+
+
+  #test Allergy
+  veggies = Ingredient.new("Veggies")
+  jessVeggieAllergen = Allergen.new(jess, veggies)
+  puts "first allergy ingredient"
+  puts Allergen.all.first.ingredient.name

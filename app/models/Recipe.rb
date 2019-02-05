@@ -22,7 +22,13 @@ class Recipe
   end
 
   def users
-
+    all_user = []
+    RecipeCard.all.each do |recipecard|
+      if recipecard.recipe == self
+        all_user << recipecard.user.name
+      end
+    end
+    all_user
   end
 
   def self.most_popular
@@ -36,5 +42,10 @@ class Recipe
     end
 
     numEachRecipe.key(numEachRecipe.values.max)
+  end
+
+  def allergens
+    puts "create allergens that are in this recipe"
+
   end
 end
